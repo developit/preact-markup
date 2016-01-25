@@ -2,11 +2,15 @@ import { h as defaultReviver, Component } from 'preact';
 import markupToVdom from './markup-to-vdom';
 
 let customReviver;
-export function setReviver(h) {
-	customReviver = h;
-}
+// export function setReviver(h) {
+// 	customReviver = h;
+// }
 
 export default class Markup extends Component {
+	static setReviver(h) {
+		customReviver = h;
+	}
+
 	shouldComponentUpdate({ markup }) {
 		return markup!==this.props.markup;
 	}
