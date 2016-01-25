@@ -8,6 +8,9 @@ A `<Markup>` component that renders HTML or XML using Virtual DOM, mapping a set
 You can think of this like an HTML binding for preact, with support for Custom Elements (along the lines of Web Components) implemented as preact components.
 
 
+:zap: **[JSFiddle Demo](https://jsfiddle.net/developit/narb8qmo/)** :zap:
+
+
 ## Use Cases
 
 - Component-base app design and/or layout via HTML
