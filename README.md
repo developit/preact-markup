@@ -1,14 +1,14 @@
-# preact-markup
-
-[![NPM](http://img.shields.io/npm/v/preact-markup.svg)](https://www.npmjs.com/package/preact-markup)
+# preact-markup [![NPM](http://img.shields.io/npm/v/preact-markup.svg)](https://www.npmjs.com/package/preact-markup)
 [![travis-ci](https://travis-ci.org/developit/preact-markup.svg)](https://travis-ci.org/developit/preact-markup)
 
-A `<Markup>` component that renders HTML or XML using Virtual DOM, mapping a set of element names to Components. Works with [Preact] (or React).
+A `<Markup>` component that renders HTML (or XML) using Virtual DOM, mapping a set of element names to Components. Works beautifully with [Preact].
 
-You can think of this like an HTML binding for preact, with support for Custom Elements (along the lines of Web Components) implemented as preact components.
+> **Think of this like an HTML5 renderer where Web Components are implemented as [Preact] Components**.
 
+### :zap: **[JSFiddle Demo](https://jsfiddle.net/developit/narb8qmo/)** :zap:
 
-:zap: **[JSFiddle Demo](https://jsfiddle.net/developit/narb8qmo/)** :zap:
+<img src="https://i.gyazo.com/f98be3c0d3a40c50d151dbc72f317f2f.gif" alt="demo preview" width="425" height="255" />
+
 
 
 ## Use Cases
