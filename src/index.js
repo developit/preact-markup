@@ -13,7 +13,7 @@ export default class Markup extends Component {
 		return wrap!==p.wrap || type!==p.type || markup!==p.markup;
 	}
 
-	componentWillReceiveProps({ components }) {
+	setComponents(components) {
 		this.map = {};
 		if (components) {
 			for (let i in components) {
@@ -27,6 +27,8 @@ export default class Markup extends Component {
 	render({ wrap=true, type, markup, components, reviver, onError, ...props }) {
 		let h = reviver || this.reviver || this.constructor.prototype.reviver || customReviver || defaultReviver,
 			vdom;
+
+		this.setComponents(components);
 
 		try {
 			vdom = markupToVdom(markup, type, h, this.map);
