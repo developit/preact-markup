@@ -9,7 +9,7 @@ const EMPTY_OBJ = {};
 *	@param {Function} reviver	The JSX/hyperscript reviver (`h` function) to use. For example, Preact's `h` or `ReactDOM.createElement`.
 *	@param {Object} [map]		Optional map of custom element names to Components or variant element names.
  */
-export default function markupToVdom(markup, type, reviver, map) {
+export default function markupToVdom(markup, type, reviver, map, options) {
 	let dom = parseMarkup(markup, type);
 
 	if (dom && dom.error) {
@@ -18,7 +18,7 @@ export default function markupToVdom(markup, type, reviver, map) {
 
 	let body = dom && dom.body || dom;
 	visitor.map = map || EMPTY_OBJ;
-	let vdom = body && toVdom(body, visitor, reviver);
+	let vdom = body && toVdom(body, visitor, reviver, options);
 	visitor.map = null;
 
 
