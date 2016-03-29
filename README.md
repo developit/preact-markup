@@ -74,12 +74,14 @@ Subsequent `render()`s diff against that DOM just like a normal JSX rendering fl
 
 ### Optional properties
 
-**allow-scripts** - By default, preact-markup sanitizes the rendered HTML by removing script tags unless the `allow-scripts` property is defined. For example,
+`allow-scripts` - By default, preact-markup sanitizes the rendered HTML by removing script tags. The `allow-scripts` property re-enables script tags, _executing any JavaScript code within them_.
 
-```
-let markup = `<em>hello!</em><h1>asdflkj</h1><script type="text/javascript">alert("Hello world");</script>`;
-render(<Markup markup={markup}  allow-scripts />, document.body);
-```
+> ##### Example
+>
+> ```js
+> let markup = `<em>hello!</em><h1>asdflkj</h1><script>alert("Hello world");</script>`;
+> render(<Markup markup={markup} allow-scripts />, document.body);
+> ```
 
 ---
 
