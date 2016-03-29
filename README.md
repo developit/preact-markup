@@ -72,6 +72,14 @@ When `render()` is invoked, Our `<Sidebar />` component is substituted for the `
 
 Subsequent `render()`s diff against that DOM just like a normal JSX rendering flow would.
 
+### Optional properties
+
+**allow-scripts** - By default, preact-markup sanitizes the rendered HTML by removing script tags unless the `allow-scripts` property is defined. For example,
+
+```
+let markup = `<em>hello!</em><h1>asdflkj</h1><script type="text/javascript">alert("Hello world");</script>`;
+render(<Markup markup={markup}  allow-scripts />, document.body);
+```
 
 ---
 

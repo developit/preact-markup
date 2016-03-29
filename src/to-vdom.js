@@ -1,13 +1,18 @@
 // deeply convert an XML DOM to VDOM
-export default function toVdom(node, visitor, h) {
+export default function toVdom(node, visitor, h, options) {
 	walk.visitor = visitor;
 	walk.h = h;
+	walk.options = options || {};
 	return walk(node);
 }
 
 function walk(n) {
 	if (n.nodeType===3) return 'textContent' in n ? n.textContent : n.nodeValue;
 	if (n.nodeType!==1) return null;
+	// Do not allow script tags unless explicitly specified
+	if (String(n.nodeName).toLowerCase() === "script" && !walk.options['allow-scripts']){
+		return null;
+	}
 	let out = walk.h(
 		String(n.nodeName).toLowerCase(),
 		getProps(n.attributes),

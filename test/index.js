@@ -131,4 +131,15 @@ describe('Markup', () => {
 			</div>
 		);
 	});
+
+	it('ignore script tags unless allow-scripts is enabled', () => {
+		window.stub = sinon.stub();
+		let markup = `<em>hello!</em><h1>asdflkj</h1><script type="text/javascript">window.stub();</script>`;
+		render(<Markup markup={markup} />, scratch);
+		expect(window.stub.called,"stub should NOT be triggered if allow-scripts is not explicitly enabled").to.equal(false);
+		render(<Markup markup={markup} allow-scripts/>, scratch);
+		expect(window.stub.called,"stub should be triggered if allow-scripts is enabled").to.equal(true);
+		delete window.stub;
+
+	});
 });

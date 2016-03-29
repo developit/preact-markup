@@ -30,8 +30,9 @@ export default class Markup extends Component {
 
 		this.setComponents(components);
 
+		let options = {'allow-scripts': this.props['allow-scripts']};
 		try {
-			vdom = markupToVdom(markup, type, h, this.map);
+			vdom = markupToVdom(markup, type, h, this.map, options);
 		} catch(error) {
 			if (onError) onError({ error });
 		}
