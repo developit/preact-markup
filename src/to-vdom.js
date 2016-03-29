@@ -1,20 +1,24 @@
+
+const EMPTY_OBJ = {};
+
 // deeply convert an XML DOM to VDOM
 export default function toVdom(node, visitor, h, options) {
 	walk.visitor = visitor;
 	walk.h = h;
-	walk.options = options || {};
+	walk.options = options || EMPTY_OBJ;
 	return walk(node);
 }
 
 function walk(n) {
 	if (n.nodeType===3) return 'textContent' in n ? n.textContent : n.nodeValue;
 	if (n.nodeType!==1) return null;
+	let nodeName = String(n.nodeName).toLowerCase();
+
 	// Do not allow script tags unless explicitly specified
-	if (String(n.nodeName).toLowerCase() === "script" && !walk.options['allow-scripts']){
-		return null;
-	}
+	if (nodeName==='script' && !walk.options.allowScripts) return null;
+
 	let out = walk.h(
-		String(n.nodeName).toLowerCase(),
+		nodeName,
 		getProps(n.attributes),
 		walkChildren(n.childNodes)
 	);

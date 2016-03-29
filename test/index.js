@@ -1,6 +1,8 @@
 import { h, render, rerender, Component } from 'preact';
 import assertJsx from 'preact-jsx-chai';
+import sinonChai from 'sinon-chai';
 chai.use(assertJsx);
+chai.use(sinonChai);
 import Markup from 'src';
 
 /*eslint-env browser,mocha*/
@@ -132,14 +134,33 @@ describe('Markup', () => {
 		);
 	});
 
-	it('ignore script tags unless allow-scripts is enabled', () => {
-		window.stub = sinon.stub();
-		let markup = `<em>hello!</em><h1>asdflkj</h1><script type="text/javascript">window.stub();</script>`;
-		render(<Markup markup={markup} />, scratch);
-		expect(window.stub.called,"stub should NOT be triggered if allow-scripts is not explicitly enabled").to.equal(false);
-		render(<Markup markup={markup} allow-scripts/>, scratch);
-		expect(window.stub.called,"stub should be triggered if allow-scripts is enabled").to.equal(true);
-		delete window.stub;
+	describe('allow-scripts option', () => {
+		before( () => {
+			window.stub = sinon.stub();
+		});
 
+		beforeEach( () => {
+			window.stub.reset();
+		});
+
+		after( () => {
+			delete window.stub;
+		});
+
+		it('should ignore script tags by default', () => {
+			let markup = `<em>hello!</em><h1>asdflkj</h1><script type="text/javascript">window.stub();</script>`;
+			render(<Markup markup={markup} />, scratch);
+
+			markup = `<em>hello!</em><h1>asdflkj</h1><script>window.stub();</script>`;
+			render(<Markup markup={markup} />, scratch);
+
+			expect(window.stub).not.to.have.been.called;
+		});
+
+		it('should allow script tags if allow-scripts is enabled', () => {
+			let markup = `<em>hello!</em><h1>asdflkj</h1><script type="text/javascript">window.stub();</script>`;
+			render(<Markup markup={markup} allow-scripts />, scratch);
+			expect(window.stub).to.have.been.calledOnce;
+		});
 	});
 });

@@ -24,13 +24,16 @@ export default class Markup extends Component {
 		}
 	}
 
-	render({ wrap=true, type, markup, components, reviver, onError, ...props }) {
+	render({ wrap=true, type, markup, components, reviver, onError, 'allow-scripts':allowScripts, ...props }) {
 		let h = reviver || this.reviver || this.constructor.prototype.reviver || customReviver || defaultReviver,
 			vdom;
 
 		this.setComponents(components);
 
-		let options = {'allow-scripts': this.props['allow-scripts']};
+		let options = {
+			allowScripts
+		};
+
 		try {
 			vdom = markupToVdom(markup, type, h, this.map, options);
 		} catch(error) {
