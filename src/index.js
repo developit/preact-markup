@@ -18,7 +18,8 @@ export default class Markup extends Component {
 		if (components) {
 			for (let i in components) {
 				if (components.hasOwnProperty(i)) {
-					this.map[i.replace(/([a-zA-Z0-9]+)([A-Z])/g, '$1-$2').toLowerCase()] = components[i];
+					let name = i.replace(/([A-Z]+)([A-Z][a-z0-9])|([a-z0-9]+)([A-Z])/g, '$1$3-$2$4').toLowerCase();
+					this.map[name] = components[i];
 				}
 			}
 		}
