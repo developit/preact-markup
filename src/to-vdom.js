@@ -33,6 +33,9 @@ function getProps(attrs) {
 	for (let i=0; i<len; i++) {
 		let { name, value } = attrs[i];
 		if (value==='') value = true;
+		if (name.substring(0,2)==='on' && walk.options.allowEvents){
+			value  = new Function(value); // eslint-disable-line no-new-func
+		}
 		props[name] = value;
 	}
 	return props;

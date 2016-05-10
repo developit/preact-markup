@@ -163,4 +163,39 @@ describe('Markup', () => {
 			expect(window.stub).to.have.been.calledOnce;
 		});
 	});
+	describe('allow-events option', () => {
+		before( () => {
+			window.stub = sinon.stub();
+		});
+
+		beforeEach( () => {
+			window.stub.reset();
+		});
+
+		after( () => {
+			delete window.stub;
+		});
+
+		it('should correctly proxy on* handlers defined as strings', () => {
+			let markup = `<div onClick="stub(arguments[0]);">Hello world</div>`;
+			render(<Markup markup={markup} wrap={false} allow-events />, scratch);
+			let element = scratch.childNodes[0];
+			let ev = document.createEvent("MouseEvent");
+			ev.initMouseEvent("click");
+			expect(window.stub.called,"stub should not be called before click handler").to.equal(false);
+			element.dispatchEvent(ev);
+			expect(window.stub.called,"stub should be called from click handler").to.equal(true);
+			expect(window.stub, "click handler should be supplied event as argument").to.have.been.calledWithExactly(ev);
+		});
+
+		it('should NOT proxy on* handlers if allow-events is not enabled', () => {
+			let markup = `<div onClick="stub(arguments[0]);">Hello world</div>`;
+			render(<Markup markup={markup} wrap={false} />, scratch);
+			let element = scratch.childNodes[0];
+			let ev = document.createEvent("MouseEvent");
+			ev.initMouseEvent("click");
+			element.dispatchEvent(ev);
+			expect(window.stub.called,"stub should NOT be called from click handler").to.equal(false);
+		});
+	});
 });
