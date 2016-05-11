@@ -64,7 +64,7 @@
     "mocha": "^2.3.4",
     "npm-run-all": "^1.5.0",
     "phantomjs": "^1.9.19",
-    "preact": "^4.8.0",
+    "preact": "^3.4.0",
     "preact-jsx-chai": "^1.0.0",
     "pretty-bytes-cli": "^1.0.0",
     "rollup": "^0.25.1",
