@@ -188,14 +188,19 @@ describe('Markup', () => {
 			expect(window.stub, "click handler should be supplied event as argument").to.have.been.calledWithExactly(ev);
 		});
 
-		it('should NOT proxy on* handlers if allow-events is not enabled', () => {
+		it('should NOT proxy on* handlers if allow-events is not enabled', (done) => {
 			let markup = `<div onClick="stub(arguments[0]);">Hello world</div>`;
+			let error = null;
 			render(<Markup markup={markup} wrap={false} />, scratch);
 			let element = scratch.childNodes[0];
 			let ev = document.createEvent("MouseEvent");
 			ev.initMouseEvent("click");
+			// Errors thrown by dispatchEvent are always uncaught exceptions
+			window.onerror = (e) => {
+				expect(window.stub.called,"stub should NOT be called from click handler").to.equal(false);
+				done();
+			};
 			element.dispatchEvent(ev);
-			expect(window.stub.called,"stub should NOT be called from click handler").to.equal(false);
 		});
 	});
 });
