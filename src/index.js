@@ -25,14 +25,15 @@ export default class Markup extends Component {
 		}
 	}
 
-	render({ wrap=true, type, markup, components, reviver, onError, 'allow-scripts':allowScripts, ...props }) {
+	render({ wrap=true, type, markup, components, reviver, onError, 'allow-scripts':allowScripts,'allow-events':allowEvents, ...props }) {
 		let h = reviver || this.reviver || this.constructor.prototype.reviver || customReviver || defaultReviver,
 			vdom;
 
 		this.setComponents(components);
 
 		let options = {
-			allowScripts
+			allowScripts,
+			allowEvents
 		};
 
 		try {
