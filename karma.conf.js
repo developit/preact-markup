@@ -18,6 +18,10 @@ module.exports = function(config) {
 			'**/*.js': ['sourcemap']
 		},
 
+		mochaReporter: {
+			showDiff: true
+		},
+
 		webpack: {
 			module: {
 				loaders: [
