@@ -58,6 +58,9 @@ export default function parseMarkup(markup, type) {
 
 /** A shared frame is used for the fallback HTML parser, built on-demand. */
 function buildParserFrame() {
+	if (document.implementation && document.implementation.createHTMLDocument) {
+		return document.implementation.createHTMLDocument('');
+	}
 	let frame = document.createElement('iframe');
 	frame.style.cssText = 'position:absolute; left:0; top:-999em; width:1px; height:1px; overflow:hidden;';
 	frame.setAttribute('sandbox', 'allow-forms');
