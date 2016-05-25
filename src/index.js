@@ -38,8 +38,8 @@ export default class Markup extends Component {
 
 		try {
 			vdom = markupToVdom(markup, type, h, this.map, options);
-		} catch(error) {
 			if (onError) onError({ error });
+		} catch (error) {
 		}
 
 		if (wrap===false) return vdom && vdom[0] || null;

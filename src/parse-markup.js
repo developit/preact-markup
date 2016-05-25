@@ -9,13 +9,9 @@ export default function parseMarkup(markup, type) {
 		parserError, wrappedMarkup, tag;
 
 	// wrap with an element so we can find it after parsing, and to support multiple root nodes
-	// markup = `<x-root>${markup}</x-root>`;
-	// markup = (type==='html' ? '<!DOCTYPE html>\n' : '<?xml version="1.0" encoding="UTF-8"?>') + '\n<x-root>'+markup+'</x-root>';
 	if (type==='html') {
 		tag = 'body';
 		wrappedMarkup = '<!DOCTYPE html>\n<html><body>'+markup+'</body></html>';
-		// tag = 'x-root';
-		// wrappedMarkup = '<x-root>'+markup+'</x-root>';
 	}
 	else {
 		tag = 'xml';
@@ -25,7 +21,7 @@ export default function parseMarkup(markup, type) {
 	// if available (browser support varies), using DOMPaser in HTML mode is much faster, safer and cleaner than injecting HTML into an iframe.
 	try {
 		doc = new DOMParser().parseFromString(wrappedMarkup, mime);
-	} catch(err) {
+	} catch (err) {
 		parserError = err;
 	}
 
