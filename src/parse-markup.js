@@ -4,7 +4,7 @@ let parserDoc;
  *	@param {String} markup
  */
 export default function parseMarkup(markup, type) {
-	let doc, frame,
+	let doc,
 		mime = type==='html' ? 'text/html' : 'application/xml',
 		parserError, wrappedMarkup, tag;
 
