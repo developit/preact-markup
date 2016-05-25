@@ -38,8 +38,13 @@ export default class Markup extends Component {
 
 		try {
 			vdom = markupToVdom(markup, type, h, this.map, options);
-			if (onError) onError({ error });
 		} catch (error) {
+			if (onError) {
+				onError({ error });
+			}
+			else if (typeof console!=='undefined' && console.error) {
+				console.error(`preact-markup: ${error}`);
+			}
 		}
 
 		if (wrap===false) return vdom && vdom[0] || null;

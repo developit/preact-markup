@@ -203,4 +203,16 @@ describe('Markup', () => {
 			element.dispatchEvent(ev);
 		});
 	});
+
+	it('should pipe parse errors to console', () => {
+		sinon.spy(console, 'error');
+
+		let invalidXml = `<h1>Test with & symbol</h1>`;
+
+		render(<Markup markup={invalidXml} />, scratch);
+
+		expect(console.error)
+			.to.have.been.calledOnce
+			.and.calledWithMatch('preact-markup: Error: error on line 2 at column 21: xmlParseEntityRef: no name');
+	});
 });
