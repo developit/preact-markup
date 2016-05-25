@@ -23,7 +23,7 @@ A `<Markup>` component that renders HTML (or XML) using Virtual DOM, mapping a s
 
 ### Overview
 
-The `<Markup />` component takes some `markup`, an optional mapping of custom element names to `components`, and an optional `type` of either `xml` (the default) or `html`.
+The `<Markup />` component takes some `markup`, an optional mapping of custom element names to `components`, and an optional `type` of either `xml` or `html`.
 
 In it's simplest form, `<Markup />` is just a diffing XML/HTML renderer. It only re-renders when you change the `markup` prop.
 
@@ -33,6 +33,8 @@ import Markup from 'preact-markup';
 let html = `<h1>hello</h1> <p>Testing 1 2 3...</p>`;
 render(<Markup markup={html} />, document.body);
 ```
+
+> **Note:** by default, content is parsed as XML, which may be too strict for your content but is the fastest option. Pass `type="html"` to parse as HTML.
 
 
 ### Custom Elements via Components
@@ -73,6 +75,10 @@ When `render()` is invoked, Our `<Sidebar />` component is substituted for the `
 Subsequent `render()`s diff against that DOM just like a normal JSX rendering flow would.
 
 ### Optional properties
+
+`type` - By default, content is parsed as XML. Pass `type="html"` to use an HTML parser.
+
+`onError` - Suppress XML/HTML parse errors and instead pass them to this function.
 
 `allow-scripts` - By default, preact-markup sanitizes the rendered HTML by removing script tags. The `allow-scripts` property re-enables script tags, _executing any JavaScript code within them_.
 
