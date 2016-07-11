@@ -26,10 +26,6 @@ function walk(n) {
 	return out;
 }
 
-function toCamelCase(name) {
-	return name.replace(/-(.)/g, (match, letter) =>letter.toUpperCase())
-}
-
 function getProps(attrs) {
 	let len = attrs && attrs.length;
 	if (!len) return null;
@@ -40,7 +36,7 @@ function getProps(attrs) {
 		if (name.substring(0,2)==='on' && walk.options.allowEvents){
 			value  = new Function(value); // eslint-disable-line no-new-func
 		}
-		props[toCamelCase(name)] = value;
+		props[name] = value;
 	}
 	return props;
 }

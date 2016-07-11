@@ -128,6 +128,16 @@ describe('Markup', () => {
 				<div class="foo" camelCasedProperty="2"/>
 			</div>
 		);
+
+		expect(
+			<Markup markup='<foo camel-cased-property="2"><div data-foo="foo"></div></foo>' components={{ Foo }}/>
+		).to.eql(
+			<div class="markup">
+				<div class="foo" camelCasedProperty="2">
+					<div data-foo="foo"></div>
+				</div>
+			</div>
+		);
 	});
 
 	it('should correctly map HTML properties', () => {
@@ -151,6 +161,17 @@ describe('Markup', () => {
 				<div class="foo" camelCasedProperty="2"/>
 			</div>
 		);
+
+		expect(
+			<Markup type="html" markup='<foo camel-cased-property="2"><div data-foo="foo"></div></foo>' components={{ Foo }}/>
+		).to.eql(
+			<div class="markup">
+				<div class="foo" camelCasedProperty="2">
+					<div data-foo="foo"></div>
+					</div>
+			</div>
+		);
+
 	});
 
 	it('should render mapped components from HTML', () => {
