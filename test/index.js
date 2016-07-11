@@ -86,13 +86,14 @@ describe('Markup', () => {
 	});
 
 	it('should render mapped components from XML', () => {
-		const Foo = ({ a, b, children }) => (<div class="foo" data-a={a} data-b={b}>{ children }</div>);
+		const Foo = ({ a, b, camelCasedProperty, children }) =>
+			(<div class="foo" camelCasedProperty={camelCasedProperty} data-a={a} data-b={b}>{ children }</div>);
 
 		expect(
-			<Markup markup='<foo a="1" b="two" />' components={{ Foo }} />
+			<Markup markup='<foo a="1" b="two" camel-cased-property="2" />' components={{ Foo }} />
 		).to.eql(
 			<div class="markup">
-				<div class="foo" data-a="1" data-b="two" />
+				<div class="foo" data-a="1" data-b="two" camelCasedProperty="2"/>
 			</div>
 		);
 
@@ -109,14 +110,79 @@ describe('Markup', () => {
 		);
 	});
 
-	it('should render mapped components from HTML', () => {
-		const XFoo = ({ p, children }) => (<div class="x-foo" asdf={p}>hello { children }</div>);
+	it('should correctly map XML properties', () => {
+		const Foo = ({camelCasedProperty, children}) =>
+			(<div class="foo" camelCasedProperty={camelCasedProperty}>{ children }</div>);
 
 		expect(
-			<Markup type="html" markup='<x-foo p="1" />' components={{ XFoo }} />
+			<Markup markup='<foo camelCasedProperty="2" />' components={{ Foo }}/>
 		).to.eql(
 			<div class="markup">
-				<div class="x-foo" asdf="1">hello </div>
+				<div class="foo" camelCasedProperty="2"/>
+			</div>
+		);
+		expect(
+			<Markup markup='<foo camel-cased-property="2" />' components={{ Foo }}/>
+		).to.eql(
+			<div class="markup">
+				<div class="foo" camelCasedProperty="2"/>
+			</div>
+		);
+
+		expect(
+			<Markup markup='<foo camel-cased-property="2"><div data-foo="foo"></div></foo>' components={{ Foo }}/>
+		).to.eql(
+			<div class="markup">
+				<div class="foo" camelCasedProperty="2">
+					<div data-foo="foo"></div>
+				</div>
+			</div>
+		);
+	});
+
+	it('should correctly map HTML properties', () => {
+		const Foo = ({camelCasedProperty, children}) =>
+			(<div class="foo" camelCasedProperty={camelCasedProperty}>{ children }</div>);
+
+		//Notice that camelCasedProperty is gone in the output cause it's mapped in `prop.camelcasedproperty`
+		// and Foo isn't aware of it
+		expect(
+			<Markup type="html" markup='<foo camelCasedProperty="2" />' components={{ Foo }}/>
+		).to.eql(
+			<div class="markup">
+				<div class="foo"/>
+			</div>
+		);
+
+		expect(
+			<Markup type="html" markup='<foo camel-cased-property="2" />' components={{ Foo }}/>
+		).to.eql(
+			<div class="markup">
+				<div class="foo" camelCasedProperty="2"/>
+			</div>
+		);
+
+		expect(
+			<Markup type="html" markup='<foo camel-cased-property="2"><div data-foo="foo"></div></foo>' components={{ Foo }}/>
+		).to.eql(
+			<div class="markup">
+				<div class="foo" camelCasedProperty="2">
+					<div data-foo="foo"></div>
+					</div>
+			</div>
+		);
+
+	});
+
+	it('should render mapped components from HTML', () => {
+		const XFoo = ({ p, camelCasedProperty, children }) =>
+			(<div class="x-foo" camelCasedProperty={camelCasedProperty} asdf={p}>hello { children }</div>);
+
+		expect(
+			<Markup type="html" markup='<x-foo p="1" camel-cased-property="2"/>' components={{ XFoo }} />
+		).to.eql(
+			<div class="markup">
+				<div class="x-foo" asdf="1" camelCasedProperty="2">hello </div>
 			</div>
 		);
 

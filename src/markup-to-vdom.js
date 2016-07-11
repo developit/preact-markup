@@ -25,8 +25,21 @@ export default function markupToVdom(markup, type, reviver, map, options) {
 	return vdom && vdom.children || null;
 }
 
+function toCamelCase(name) {
+	return name.replace(/-(.)/g, (match, letter) =>letter.toUpperCase())
+}
+
 function visitor(node) {
 	let name = node.nodeName.toLowerCase(),
 		map = visitor.map;
-	node.nodeName = map && map.hasOwnProperty(name) ? map[name] : name.replace(/[^a-z0-9-]/i,'');
+	if (map && map.hasOwnProperty(name)){
+		node.nodeName = map[name];
+		node.attributes = Object.keys(node.attributes).reduce((attrs,attrName)=>{
+			attrs[toCamelCase(attrName)] = node.attributes[attrName];
+			return attrs;
+		},{})
+	} else {
+		node.nodeName =  name.replace(/[^a-z0-9-]/i,'');
+	}
+
 }
