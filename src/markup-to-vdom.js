@@ -26,7 +26,7 @@ export default function markupToVdom(markup, type, reviver, map, options) {
 }
 
 function toCamelCase(name) {
-	return name.replace(/-(.)/g, (match, letter) =>letter.toUpperCase())
+	return name.replace(/-(.)/g, (match, letter) =>letter.toUpperCase());
 }
 
 function visitor(node) {
@@ -37,7 +37,7 @@ function visitor(node) {
 		node.attributes = Object.keys(node.attributes).reduce((attrs,attrName)=>{
 			attrs[toCamelCase(attrName)] = node.attributes[attrName];
 			return attrs;
-		},{})
+		},{});
 	} else {
 		node.nodeName =  name.replace(/[^a-z0-9-]/i,'');
 	}
