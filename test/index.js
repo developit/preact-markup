@@ -287,12 +287,14 @@ describe('Markup', () => {
 
 	it('should trim whitespace by default', () => {
 		expect(
-			<Markup markup="<em> hello! </em>   <h1>	asdflkj	</h1>" />
+			<Markup markup="<div> <em> hello! </em>   <h1>	asdflkj	</h1> </div>" />
 		).to.eql(
 			<div class="markup">
-				<em>hello!</em>
-				{' '}
-				<h1>asdflkj</h1>
+				<div>
+					<em>hello!</em>
+					{' '}
+					<h1>asdflkj</h1>
+				</div>
 			</div>
 		);
 

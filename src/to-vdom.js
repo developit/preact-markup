@@ -21,7 +21,7 @@ function walk(n, index, arr) {
 				text = text.replace(/(^[\s\n]+|[\s\n]+$)/g, '');
 			}
 			// skip leading/trailing whitespace
-			if (!text && (index===0 || index===arr.length-1)) return null;
+			if (!text || text===' ' && arr.length>1 && (index===0 || index===arr.length-1)) return null;
 		}
 		return text;
 	}
