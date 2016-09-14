@@ -34,7 +34,7 @@ function visitor(node) {
 		map = visitor.map;
 	if (map && map.hasOwnProperty(name)){
 		node.nodeName = map[name];
-		node.attributes = Object.keys(node.attributes).reduce((attrs,attrName)=>{
+		node.attributes = Object.keys(node.attributes || {}).reduce((attrs,attrName)=>{
 			attrs[toCamelCase(attrName)] = node.attributes[attrName];
 			return attrs;
 		},{});
