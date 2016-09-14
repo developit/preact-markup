@@ -72,7 +72,7 @@ describe('Markup', () => {
 		let onError = sinon.spy();
 		render(<Markup markup="<2-element> <2/> </a> <div>" type="html" onError={onError} />, scratch);
 		expect(onError).not.to.have.been.called;
-		expect(scratch.firstChild.innerHTML).to.equal('&lt;2-element&gt; &lt;2/&gt;  <div></div>');
+		expect(scratch.firstChild.innerHTML).to.equal('&lt;2-element&gt; &lt;2/&gt;<div></div>');
 	});
 
 	it('should render invalid HTML to the correct JSX', () => {
@@ -80,7 +80,7 @@ describe('Markup', () => {
 			<Markup markup="<2-element> <2/> </a> <div>" type="html" />
 		).to.eql(
 			<div class="markup">
-				&lt;2-element&gt; &lt;2/&gt;  <div />
+				&lt;2-element&gt; &lt;2/&gt;<div />
 			</div>
 		);
 	});
@@ -229,6 +229,7 @@ describe('Markup', () => {
 			expect(window.stub).to.have.been.calledOnce;
 		});
 	});
+
 	describe('allow-events option', () => {
 		before( () => {
 			window.stub = sinon.stub();
@@ -271,7 +272,7 @@ describe('Markup', () => {
 	});
 
 	it('should pipe parse errors to console', () => {
-		sinon.spy(console, 'error');
+		sinon.stub(console, 'error');
 
 		let invalidXml = `<h1>Test with & symbol</h1>`;
 
@@ -280,5 +281,46 @@ describe('Markup', () => {
 		expect(console.error)
 			.to.have.been.calledOnce
 			.and.calledWithMatch('preact-markup: Error: error on line 2 at column 21: xmlParseEntityRef: no name');
+
+		console.error.restore();
+	});
+
+	it('should trim whitespace by default', () => {
+		expect(
+			<Markup markup="<em> hello! </em>   <h1>	asdflkj	</h1>" />
+		).to.eql(
+			<div class="markup">
+				<em>hello!</em>
+				{' '}
+				<h1>asdflkj</h1>
+			</div>
+		);
+
+		expect(
+			<Markup markup="<span> </span>" />
+		).to.eql(
+			<div class="markup">
+				<span>{' '}</span>
+			</div>
+		);
+	});
+
+	it('should trim all whitespace for trim="all"', () => {
+		expect(
+			<Markup trim="all" markup="<em> hello! </em>   <h1>	asdflkj	</h1>" />
+		).to.eql(
+			<div class="markup">
+				<em>hello!</em>
+				<h1>asdflkj</h1>
+			</div>
+		);
+
+		expect(
+			<Markup trim="all" markup="<span> </span>" />
+		).to.eql(
+			<div class="markup">
+				<span />
+			</div>
+		);
 	});
 });
