@@ -12,16 +12,22 @@ export default function toVdom(node, visitor, h, options) {
 function walk(n, index, arr) {
 	if (n.nodeType===3) {
 		let text = 'textContent' in n ? n.textContent : n.nodeValue || '';
+
 		if (walk.options.trim!==false) {
+			let isFirstOrLast = index===0 || index===arr.length-1;
+
 			// trim strings but don't entirely collapse whitespace
 			if (text.match(/^[\s\n]+$/g) && walk.options.trim!=='all') {
 				text = ' ';
 			}
 			else {
-				text = text.replace(/(^[\s\n]+|[\s\n]+$)/g, '');
+				text = text.replace(/(^[\s\n]+|[\s\n]+$)/g, walk.options.trim==='all' || isFirstOrLast ? '' : ' ');
 			}
 			// skip leading/trailing whitespace
-			if (!text || text===' ' && arr.length>1 && (index===0 || index===arr.length-1)) return null;
+			// if (!text || text===' ' && arr.length>1 && (index===0 || index===arr.length-1)) return null;
+			if ((!text || text===' ') && arr.length>1 && isFirstOrLast) return null;
+			// if (!text && arr.length>1 && (index===0 || index===arr.length-1)) return null;
+			// if (!text || text===' ') return null;
 		}
 		return text;
 	}
