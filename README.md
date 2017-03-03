@@ -79,6 +79,8 @@ Subsequent `render()`s diff against that DOM just like a normal JSX rendering fl
 
 `type` - By default, content is parsed as XML. Pass `type="html"` to use an HTML parser.
 
+`trim` - Trimming tries to emulate HTML semantics by default, but these differ from JSX semantics. Pass `false` to retain all whitespace, or `all` to omit all whitespace.
+
 `onError` - Suppress XML/HTML parse errors and instead pass them to this function.
 
 `allow-scripts` - By default, preact-markup sanitizes the rendered HTML by removing script tags. The `allow-scripts` property re-enables script tags, _executing any JavaScript code within them_.
