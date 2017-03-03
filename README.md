@@ -12,6 +12,7 @@ A `<Markup>` component that renders HTML (or XML) using Virtual DOM, mapping a s
 
 ## Use Cases
 
+- Rendering Markdown in VDOM - see [preact-markdown](https://github.com/laggingreflex/preact-markdown)
 - Component-base app design and/or layout via HTML
 - Define app structure using a standard HTML CMS
 - Support arbitrary component extensions by allowing safe HTML
