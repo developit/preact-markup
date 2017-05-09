@@ -1,5 +1,7 @@
 # preact-markup [![NPM](http://img.shields.io/npm/v/preact-markup.svg)](https://www.npmjs.com/package/preact-markup) [![travis-ci](https://travis-ci.org/developit/preact-markup.svg)](https://travis-ci.org/developit/preact-markup)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/developit/preact-markup.svg)](https://greenkeeper.io/)
+
 A `<Markup>` component that renders HTML (or XML) using Virtual DOM, mapping a set of element names to Components. Works beautifully with [Preact].
 
 > **Think of this like an HTML5 renderer where Web Components are implemented as [Preact] Components**.
