@@ -1,4 +1,6 @@
 let parserDoc;
+import DomParser from 'dom-parser';
+const parser = new DomParser();
 
 /** Parse markup into a DOM using the given mimetype.
  *	@param {String} markup
@@ -19,18 +21,22 @@ export default function parseMarkup(markup, type) {
 	}
 
 	// if available (browser support varies), using DOMPaser in HTML mode is much faster, safer and cleaner than injecting HTML into an iframe.
-	try {
-		doc = new DOMParser().parseFromString(wrappedMarkup, mime);
-	} catch (err) {
-		parserError = err;
-	}
+	if (isNode()) {
+		doc = parser.parseFromString(wrappedMarkup);
+	} else {
+		try {
+			doc = new DOMParser().parseFromString(wrappedMarkup, mime);
+		} catch (err) {
+			parserError = err;
+		}
 
-	// fall back to using an iframe to parse HTML (not applicable for XML, since DOMParser() for XML works in IE9+):
-	if (!doc && type==='html') {
-		doc = parserDoc || (parserDoc = buildParserFrame());
-		doc.open();
-		doc.write(wrappedMarkup);
-		doc.close();
+		// fall back to using an iframe to parse HTML (not applicable for XML, since DOMParser() for XML works in IE9+):
+		if (!doc && type==='html') {
+			doc = parserDoc || (parserDoc = buildParserFrame());
+			doc.open();
+			doc.write(wrappedMarkup);
+			doc.close();
+		}
 	}
 
 	if (!doc) return;
@@ -66,4 +72,15 @@ function buildParserFrame() {
 	frame.setAttribute('sandbox', 'allow-forms');
 	document.body.appendChild(frame);
 	return frame.contentWindow.document;
+}
+
+/** Determines if we are in node environment or browser.
+ *	Adopted from https://github.com/iliakan/detect-node.
+ */
+function isNode() {
+	return (
+		Object.prototype.toString.call(
+			typeof process !== 'undefined' ? process : 0 // eslint-disable-line no-undef
+		) === '[object process]')
+	;
 }

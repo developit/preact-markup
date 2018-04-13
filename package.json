@@ -51,6 +51,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "chai": "^3.5.0",
     "diff": "^2.2.2",
+    "dom-parser": "^0.1.5",
     "eslint": "^3.1.1",
     "gzip-size-cli": "^1.0.0",
     "karma": "^1.1.1",
