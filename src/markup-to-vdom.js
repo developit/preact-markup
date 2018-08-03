@@ -21,8 +21,8 @@ export default function markupToVdom(markup, type, reviver, map, options) {
 	let vdom = body && toVdom(body, visitor, reviver, options);
 	visitor.map = null;
 
-
-	return vdom && vdom.children || null;
+	// Return VDOM children for reviver (Preact uses children where React uses props.children).
+	return vdom && (vdom.children || vdom.props.children) || null;
 }
 
 function toCamelCase(name) {
