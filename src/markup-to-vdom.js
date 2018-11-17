@@ -10,7 +10,7 @@ const EMPTY_OBJ = {};
 *	@param {Object} [map]		Optional map of custom element names to Components or variant element names.
  */
 export default function markupToVdom(markup, type, reviver, map, options) {
-	let dom = parseMarkup(markup, type);
+	let dom = parseMarkup(markup, type, options.parser);
 
 	if (dom && dom.error) {
 		throw new Error(dom.error);
