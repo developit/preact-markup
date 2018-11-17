@@ -4,6 +4,7 @@ import sinonChai from 'sinon-chai';
 chai.use(assertJsx);
 chai.use(sinonChai);
 import Markup from 'src';
+import DomParser from 'dom-parser';
 
 /*eslint-env browser,mocha*/
 /*global sinon,expect,chai*/
@@ -324,5 +325,11 @@ describe('Markup', () => {
 				<span />
 			</div>
 		);
+	});
+
+	it('should render when using a custom parser', () => {
+		let markup = `<em>hello!</em><h1>asdflkj</h1>`;
+		render(<Markup parser={new DomParser()} markup={markup} />, scratch);
+		expect(scratch.firstChild.innerHTML).to.equal(markup);
 	});
 });

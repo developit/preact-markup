@@ -3,7 +3,7 @@ let parserDoc;
 /** Parse markup into a DOM using the given mimetype.
  *	@param {String} markup
  */
-export default function parseMarkup(markup, type) {
+export default function parseMarkup(markup, type, customParser=null) {
 	let doc,
 		mime = type==='html' ? 'text/html' : 'application/xml',
 		parserError, wrappedMarkup, tag;
@@ -20,7 +20,8 @@ export default function parseMarkup(markup, type) {
 
 	// if available (browser support varies), using DOMPaser in HTML mode is much faster, safer and cleaner than injecting HTML into an iframe.
 	try {
-		doc = new DOMParser().parseFromString(wrappedMarkup, mime);
+		const parser = customParser ? customParser : new DOMParser();
+		doc = parser.parseFromString(wrappedMarkup, mime);
 	} catch (err) {
 		parserError = err;
 	}

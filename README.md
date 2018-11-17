@@ -92,6 +92,15 @@ Subsequent `render()`s diff against that DOM just like a normal JSX rendering fl
 > render(<Markup markup={markup} allow-scripts />, document.body);
 > ```
 
+`parser` – With this property you can pass in a custom parser, such as `dom-parser`. This enables you to do server-side-rendering.
+
+> ##### Example
+>
+> ```js
+> const parser = typeof document==='undefined' && require('dom-parser');
+> render(<Markup parser={parser} markup="<em>hello!</em><h1>asdflkj</h1>" />);
+> ```
+
 ---
 
 

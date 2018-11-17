@@ -73,6 +73,7 @@
     "sinon": "^1.17.4",
     "sinon-chai": "^2.8.0",
     "uglify-js": "^2.6.2",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "dom-parser": "^0.1.5"
   }
 }

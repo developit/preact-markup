@@ -25,7 +25,7 @@ export default class Markup extends Component {
 		}
 	}
 
-	render({ wrap=true, type, markup, components, reviver, onError, 'allow-scripts':allowScripts, 'allow-events':allowEvents, trim, ...props }) {
+	render({ wrap=true, type, markup, components, reviver, onError, 'allow-scripts':allowScripts, 'allow-events':allowEvents, trim, parser=null, ...props }) {
 		let h = reviver || this.reviver || this.constructor.prototype.reviver || customReviver || defaultReviver,
 			vdom;
 
@@ -34,7 +34,8 @@ export default class Markup extends Component {
 		let options = {
 			allowScripts,
 			allowEvents,
-			trim
+			trim,
+			parser
 		};
 
 		try {
