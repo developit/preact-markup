@@ -14,6 +14,7 @@
     "lint": "eslint {src,test}",
     "test:karma": "karma start --single-run",
     "prepublish": "npm-run-all build test",
+    "prepare": "npm run -s build",
     "release": "npm run -s build && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
   },
   "keywords": [
