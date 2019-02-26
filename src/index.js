@@ -37,6 +37,10 @@ export default class Markup extends Component {
 			trim
 		};
 
+		if (typeof document === 'undefined') {
+			return h('div', Object.assign({ dangerouslySetInnerHTML: { __html: markup } }, props), null);
+		}
+
 		try {
 			vdom = markupToVdom(markup, type, h, this.map, options);
 		} catch (error) {
