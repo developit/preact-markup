@@ -34,7 +34,7 @@ module.exports = function(config) {
 							presets: ['es2015-loose', 'stage-0'],
 							plugins: [
 								'transform-object-rest-spread',
-								['transform-react-jsx', { pragma:'h' }]
+								['transform-react-jsx', { pragma:'createElement' }]
 							]
 						}
 					}

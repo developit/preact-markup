@@ -1,4 +1,4 @@
-import { h, render, rerender, Component } from 'preact';
+import { createElement, render, Component } from 'preact';
 import assertJsx from 'preact-jsx-chai';
 import sinonChai from 'sinon-chai';
 chai.use(assertJsx);
