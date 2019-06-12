@@ -18,11 +18,11 @@ export default {
 			babelrc: false,
 			comments: false,
 			exclude: ['node_modules/**'],
-			presets: ['es2015-loose-rollup'],
+			presets: ['@babel/env'],
 			plugins: [
-				['transform-es2015-classes', { loose:true }],
-				['transform-object-rest-spread'],
-				['transform-react-jsx', { pragma: 'h' }]
+				['@babel/plugin-transform-classes', { loose:true }],
+				['@babel/plugin-proposal-object-rest-spread'],
+				['@babel/plugin-transform-react-jsx', { pragma: 'h' }]
 			]
 		})
 	]

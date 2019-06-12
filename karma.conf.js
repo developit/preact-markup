@@ -31,10 +31,11 @@ module.exports = function(config) {
 						loader: 'babel',
 						query: {
 							sourceMap: 'inline',
-							presets: ['es2015-loose', 'stage-0'],
+							presets: ['@babel/env'],
 							plugins: [
-								'transform-object-rest-spread',
-								['transform-react-jsx', { pragma:'createElement' }]
+								['@babel/plugin-transform-classes', { loose:true }],
+								['@babel/plugin-proposal-object-rest-spread'],
+								['@babel/plugin-transform-react-jsx', { pragma: 'createElement' }]
 							]
 						}
 					}
