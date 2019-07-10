@@ -22,7 +22,7 @@ export default function markupToVdom(markup, type, reviver, map, options) {
 	visitor.map = null;
 
 
-	return vdom && vdom.children || null;
+	return vdom && vdom.props && vdom.props.children || null;
 }
 
 function toCamelCase(name) {
@@ -30,18 +30,18 @@ function toCamelCase(name) {
 }
 
 function visitor(node) {
-	let name = node.nodeName.toLowerCase(),
+	let name = (node.type || '').toLowerCase(),
 		map = visitor.map;
 
 	// eslint-disable-next-line no-prototype-builtins
 	if (map && map.hasOwnProperty(name)){
-		node.nodeName = map[name];
-		node.attributes = Object.keys(node.attributes || {}).reduce((attrs,attrName)=>{
-			attrs[toCamelCase(attrName)] = node.attributes[attrName];
+		node.type = map[name];
+		node.props = Object.keys(node.props || {}).reduce((attrs,attrName)=>{
+			attrs[toCamelCase(attrName)] = node.props[attrName];
 			return attrs;
 		},{});
 	} else {
-		node.nodeName =  name.replace(/[^a-z0-9-]/i,'');
+		node.type =  name.replace(/[^a-z0-9-]/i,'');
 	}
 
 }
