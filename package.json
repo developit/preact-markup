@@ -33,9 +33,6 @@
   "peerDependencies": {
     "preact": "*"
   },
-  "optionalDependencies": {
-    "preact": "*"
-  },
   "devDependencies": {
     "@babel/core": "^7.5.4",
     "@babel/plugin-transform-react-jsx": "^7.3.0",
