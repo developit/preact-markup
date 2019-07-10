@@ -38,25 +38,25 @@ module.exports = function(config) {
 		},
 
 		webpack: {
+			mode: 'development',
 			module: {
-				loaders: [
+				rules: [
 					{
 						test: /\.jsx?$/,
 						exclude: /node_modules/,
-						loader: 'babel',
+						loader: 'babel-loader',
 						query: {
 							sourceMap: 'inline',
-							presets: ['es2015-loose', 'stage-0'],
+							presets: ['@babel/env'],
 							plugins: [
-								'transform-object-rest-spread',
-								['transform-react-jsx', { pragma:'h' }]
+								['@babel/plugin-transform-react-jsx', { pragma:'h' }]
 							]
 						}
 					}
 				]
 			},
 			resolve: {
-				modulesDirectories: [__dirname, 'node_modules'],
+				modules: [__dirname, 'node_modules'],
 				alias: {
 					src: __dirname+'/src'
 				}

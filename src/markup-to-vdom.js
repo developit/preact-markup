@@ -32,6 +32,8 @@ function toCamelCase(name) {
 function visitor(node) {
 	let name = node.nodeName.toLowerCase(),
 		map = visitor.map;
+
+	// eslint-disable-next-line no-prototype-builtins
 	if (map && map.hasOwnProperty(name)){
 		node.nodeName = map[name];
 		node.attributes = Object.keys(node.attributes || {}).reduce((attrs,attrName)=>{
