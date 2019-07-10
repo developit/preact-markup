@@ -1,11 +1,26 @@
 var path = require('path');
 
+var localLaunchers = {
+	ChromeNoSandboxHeadless: {
+		base: 'Chrome',
+		flags: [
+			'--no-sandbox',
+			// See https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md
+			'--headless',
+			'--disable-gpu',
+			// Without a remote debugging port, Google Chrome exits immediately.
+			'--remote-debugging-port=9333'
+		]
+	}
+};
+
 module.exports = function(config) {
 	config.set({
 		frameworks: ['mocha', 'chai-sinon'],
 		reporters: ['mocha'],
 
-		browsers: ['PhantomJS'],
+		browsers: ['ChromeNoSandboxHeadless'],
+		customLaunchers: localLaunchers,
 
 		files: [
 			'test/_setup.js',
