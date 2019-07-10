@@ -168,7 +168,7 @@ describe('Markup', () => {
 			<div class="markup">
 				<div class="foo" camelCasedProperty="2">
 					<div data-foo="foo"></div>
-					</div>
+				</div>
 			</div>
 		);
 

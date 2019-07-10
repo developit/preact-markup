@@ -4,10 +4,6 @@
   "env": {
     "browser": true
   },
-  "ecmaFeatures": {
-    "modules": true,
-    "jsx": true
-  },
   "rules": {
     "no-console": 0,
     "no-unused-vars": [0, { "varsIgnorePattern": "^h$" }],

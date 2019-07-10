@@ -17,6 +17,7 @@ export default class Markup extends Component {
 		this.map = {};
 		if (components) {
 			for (let i in components) {
+				// eslint-disable-next-line no-prototype-builtins
 				if (components.hasOwnProperty(i)) {
 					let name = i.replace(/([A-Z]+)([A-Z][a-z0-9])|([a-z0-9]+)([A-Z])/g, '$1$3-$2$4').toLowerCase();
 					this.map[name] = components[i];
@@ -50,6 +51,7 @@ export default class Markup extends Component {
 
 		if (wrap===false) return vdom && vdom[0] || null;
 
+		// eslint-disable-next-line no-prototype-builtins
 		let c = props.hasOwnProperty('className') ? 'className' : 'class',
 			cl = props[c];
 		if (!cl) props[c] = 'markup';
