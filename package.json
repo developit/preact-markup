@@ -9,7 +9,6 @@
   "source": "src/index.js",
   "scripts": {
     "build": "microbundle build --raw",
-    "transpile": "rollup -c rollup.config.js",
     "test": "npm run -s lint && npm run -s test:karma",
     "lint": "eslint {src,test}",
     "test:karma": "karma start --single-run",
