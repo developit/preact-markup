@@ -8,9 +8,27 @@ export default class Markup extends Component {
 		customReviver = h;
 	}
 
-	shouldComponentUpdate({ wrap, type, markup }) {
-		let p = this.props;
-		return wrap!==p.wrap || type!==p.type || markup!==p.markup;
+	shouldComponentUpdate({ wrap, type, markup, components }) {
+		const p = this.props;
+
+		if (components) {
+			// we have a list of components, but there wasn't one before:
+			if (!p.components) {
+				return true;
+			}
+
+			for (let i in components) {
+				// one of the components changed:
+				if (p.components[i]!==components[i]) return true;
+			}
+
+			for (let i in p.components) {
+				// one of the components was removed:
+				if (!(i in components)) return true;
+			}
+		}
+
+		return wrap!==p.wrap || type!==p.type || markup!==p.markup || (!components && p.components);
 	}
 
 	setComponents(components) {
