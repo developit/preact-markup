@@ -10,7 +10,7 @@
   "scripts": {
     "build": "microbundle build --raw",
     "test": "npm run -s lint && npm run -s test:karma",
-    "lint": "eslint {src,test}",
+    "lint": "eslint {src,test}/*.js",
     "test:karma": "karma start --single-run",
     "prepublishOnly": "npm-run-all build test",
     "release": "npm run -s build && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
