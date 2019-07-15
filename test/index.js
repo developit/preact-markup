@@ -231,15 +231,13 @@ describe('Markup', () => {
 	});
 
 	describe('allow-events option', () => {
-		before( () => {
+		beforeEach(() => {
 			window.stub = sinon.stub();
+			scratch = document.createElement('div');
+			(document.body || document.documentElement).appendChild(scratch);
 		});
 
-		beforeEach( () => {
-			window.stub.reset();
-		});
-
-		after( () => {
+		afterEach(() => {
 			delete window.stub;
 		});
 
