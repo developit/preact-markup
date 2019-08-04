@@ -11,7 +11,7 @@ export default function toVdom(node, visitor, h, options) {
 
 function walk(n, index, arr) {
 	if (n.nodeType===3) {
-		let text = 'textContent' in n ? n.textContent : n.nodeValue || '';
+		let text = n.data || '';
 
 		if (walk.options.trim!==false) {
 			let isFirstOrLast = index===0 || index===arr.length-1;
@@ -53,7 +53,7 @@ function getProps(attrs) {
 	for (let i=0; i<len; i++) {
 		let { name, value } = attrs[i];
 		if (value==='') value = true;
-		if (name.substring(0,2)==='on' && walk.options.allowEvents){
+		if (name.substring(0,2)==='on' && walk.options.allowEvents) {
 			value  = new Function(value); // eslint-disable-line no-new-func
 		}
 		props[name] = value;
