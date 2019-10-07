@@ -110,6 +110,19 @@ describe('Markup', () => {
 		);
 	});
 
+	it('should render mapped components from XML with componentDefaultProps', () => {
+		const Foo = ({ a, b, camelCasedProperty, someDefaultProp, anotherDefaultProp, children }) =>
+			(<div class="foo" camelCasedProperty={camelCasedProperty} data-a={a} data-b={b} data-some-default-prop={someDefaultProp} data-another-default-prop={anotherDefaultProp} >{ children }</div>);
+
+		expect(
+			<Markup markup='<foo a="1" b="two" camel-cased-property="2" />' components={{ Foo }} componentDefaultProps={ { someDefaultProp: 'foo', anotherDefaultProp: 'bar' } } />
+		).to.eql(
+			<div class="markup">
+				<div class="foo" data-a="1" data-b="two" camelCasedProperty="2" data-some-default-prop="foo" data-another-default-prop="bar" />
+			</div>
+		);
+	});
+
 	it('should correctly map XML properties', () => {
 		const Foo = ({camelCasedProperty, children}) =>
 			(<div class="foo" camelCasedProperty={camelCasedProperty}>{ children }</div>);

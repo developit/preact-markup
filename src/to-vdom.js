@@ -37,9 +37,10 @@ function walk(n, index, arr) {
 	// Do not allow script tags unless explicitly specified
 	if (nodeName==='script' && !walk.options.allowScripts) return null;
 
+	let props = Object.assign({}, walk.options.componentDefaultProps || {}, getProps(n.attributes));
 	let out = walk.h(
 		nodeName,
-		getProps(n.attributes),
+		props,
 		walkChildren(n.childNodes)
 	);
 	if (walk.visitor) walk.visitor(out);
