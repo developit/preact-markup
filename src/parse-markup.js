@@ -44,7 +44,7 @@ export default function parseMarkup(markup, type) {
 	}
 
 	// pluck out parser errors
-	if (fc && String(fc.nodeName).toLowerCase()==='parsererror') {
+	if (fc && String(fc.type).toLowerCase()==='parsererror') {
 		// remove post/preamble to get just the error message as text
 		fc.removeChild(fc.firstChild);
 		fc.removeChild(fc.lastChild);
