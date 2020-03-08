@@ -1,4 +1,4 @@
-import { h as defaultReviver, Component } from 'preact';
+import { h as defaultReviver, Component, Fragment } from 'preact';
 import markupToVdom from './markup-to-vdom';
 
 let customReviver;
@@ -49,7 +49,7 @@ export default class Markup extends Component {
 			}
 		}
 
-		if (wrap===false) return vdom && vdom[0] || null;
+		if (wrap===false) return vdom && h(Fragment, {}, vdom) || null;
 
 		// eslint-disable-next-line no-prototype-builtins
 		let c = props.hasOwnProperty('className') ? 'className' : 'class',
