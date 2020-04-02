@@ -42,6 +42,43 @@ describe('Markup', () => {
 		expect(scratch.firstChild.innerHTML).to.equal(markup);
 	});
 
+	it('should render markup inside of a given component', () => {
+		expect(
+			<Markup as="span" markup={`<em>hello!</em>`} />
+		).to.eql(
+			<span class="markup">
+				<em>hello!</em>
+			</span>
+		);
+
+		const Component = props => <span {...props} />;
+		expect(
+			<Markup as={Component} markup={`<em>hello!</em>`} />
+		).to.eql(
+			<span class="markup">
+				<em>hello!</em>
+			</span>
+		);
+	});
+
+	it('should optionally render with a different className', () => {
+		expect(
+			<Markup markupClass="md" markup={`<em>hello!</em>`} />
+		).to.eql(
+			<div class="md">
+				<em>hello!</em>
+			</div>
+		);
+
+		expect(
+			<Markup markupClass={false} markup={`<em>hello!</em>`} />
+		).to.eql(
+			<div>
+				<em>hello!</em>
+			</div>
+		);
+	});
+
 	it('should render xml', () => {
 		render(<Markup markup="<div><x-foo /></div>" />, scratch);
 		expect(scratch.firstChild.innerHTML).to.equal('<div><x-foo></x-foo></div>');
