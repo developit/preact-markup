@@ -26,7 +26,7 @@ export default class Markup extends Component {
 		}
 	}
 
-	render({ wrap=true, type, markup, components, reviver, onError, 'allow-scripts':allowScripts, 'allow-events':allowEvents, trim, ...props }) {
+	render({ as = 'div', markupClass = 'markup', wrap=true, type, markup, components, reviver, onError, 'allow-scripts':allowScripts, 'allow-events':allowEvents, trim, ...props }) {
 		let h = reviver || this.reviver || this.constructor.prototype.reviver || customReviver || defaultReviver,
 			vdom;
 
@@ -54,11 +54,13 @@ export default class Markup extends Component {
 		// eslint-disable-next-line no-prototype-builtins
 		let c = props.hasOwnProperty('className') ? 'className' : 'class',
 			cl = props[c];
-		if (!cl) props[c] = 'markup';
-		else if (cl.splice) cl.splice(0, 0, 'markup');
-		else if (typeof cl==='string') props[c] += ' markup';
-		else if (typeof cl==='object') cl.markup = true;
+		if (markupClass) {
+			if (!cl) props[c] = markupClass;
+			else if (cl.splice) cl.splice(0, 0, markupClass);
+			else if (typeof cl==='string') props[c] += ` ${markupClass}`;
+			else if (typeof cl==='object') cl.markup = true;
+		}
 
-		return h('div', props, vdom || null);
+		return h(as, props, vdom || null);
 	}
 }
