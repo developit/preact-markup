@@ -58,6 +58,11 @@ export default function parseMarkup(markup, type) {
 
 /** A shared frame is used for the fallback HTML parser, built on-demand. */
 function buildParserFrame() {
+	// For node environments, such as for SSR, polyfill document with JSDOM
+	if (!document) {
+		const { JSDOM } = require("jsdom");
+		global.document = new JSDOM().window.document;
+	}
 	if (document.implementation && document.implementation.createHTMLDocument) {
 		return document.implementation.createHTMLDocument('');
 	}
