@@ -49,7 +49,7 @@ export default class Markup extends Component {
 			}
 		}
 
-		if (wrap===false) return vdom && vdom[0] || null;
+		if (wrap===false) return vdom || null;
 
 		// eslint-disable-next-line no-prototype-builtins
 		let c = props.hasOwnProperty('className') ? 'className' : 'class',
