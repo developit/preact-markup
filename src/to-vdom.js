@@ -32,7 +32,7 @@ function walk(n, index, arr) {
 		return text;
 	}
 	if (n.nodeType!==1) return null;
-	let nodeName = String(n.nodeName).toLowerCase();
+	let nodeName = String(n.nodeName || n.type).toLowerCase();
 
 	// Do not allow script tags unless explicitly specified
 	if (nodeName==='script' && !walk.options.allowScripts) return null;
