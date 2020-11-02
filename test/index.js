@@ -85,6 +85,11 @@ describe('Markup', () => {
 		);
 	});
 
+	it('should render empty attributes as empty', () => {
+		render(<Markup markup={'<img alt="" src="" />'} />, scratch);
+		expect(scratch.firstChild.innerHTML).to.equal('<img alt="" src="">');
+	});
+
 	it('should render mapped components from XML', () => {
 		const Foo = ({ a, b, camelCasedProperty, children }) =>
 			(<div class="foo" camelCasedProperty={camelCasedProperty} data-a={a} data-b={b}>{ children }</div>);
