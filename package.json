@@ -30,6 +30,7 @@
     "url": "https://github.com/developit/preact-markup/issues"
   },
   "homepage": "https://github.com/developit/preact-markup",
+  "types": "src/index.d.ts",
   "peerDependencies": {
     "preact": "10.x"
   },
