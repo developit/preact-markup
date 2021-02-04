@@ -1,7 +1,7 @@
 {
   "name": "preact-markup",
   "amdName": "preactMarkup",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Render HTML/XML using VDOM, with Custom Elements mapped to Components.",
   "main": "dist/preact-markup.js",
   "module": "dist/preact-markup.module.js",
