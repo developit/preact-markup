@@ -62,5 +62,8 @@
     "sinon": "^7.3.2",
     "sinon-chai": "^3.5.0",
     "webpack": "^4.35.3"
+  },
+  "dependencies": {
+    "jsdom": "^16.2.2"
   }
 }
