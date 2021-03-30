@@ -205,6 +205,43 @@ describe('Markup', () => {
 		);
 	});
 
+	it('should update when markup changes', () => {
+		render(
+			<Markup type="html" markup='<p>hello foo</p>' />,
+			scratch
+		);
+
+		expect(scratch.textContent).to.eql('hello foo');
+
+		render(
+			<Markup type="html" markup='<p>hello bar</p>' />,
+			scratch
+		);
+
+		expect(scratch.textContent).to.eql('hello bar');
+	});
+
+	it('should update when mapped components change', () => {
+		const XFoo = () =>
+			(<div class="x-foo">hello foo</div>);
+		const XBar = () =>
+			(<div class="x-bar">hello bar</div>);
+
+		render(
+			<Markup type="html" markup='<x-component />' components={{ XComponent: XFoo }} />,
+			scratch
+		);
+
+		expect(scratch.textContent).to.eql('hello foo');
+
+		render(
+			<Markup type="html" markup='<x-component />' components={{ XComponent: XBar }} />,
+			scratch
+		);
+
+		expect(scratch.textContent).to.eql('hello bar');
+	});
+
 	describe('allow-scripts option', () => {
 		before( () => {
 			window.stub = sinon.stub();
