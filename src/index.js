@@ -18,7 +18,7 @@ export default class Markup extends Component {
 			}
 
 			for (let i in components) {
-				// one of the components changed:
+				// one of the components changed, or a new one was added:
 				if (p.components[i]!==components[i]) return true;
 			}
 
