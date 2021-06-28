@@ -23,11 +23,8 @@ type Props = {
 }
 
 
-class Markup extends Component<Props, {}> {
+export default class Markup extends Component<Props, {}> {
   static setReviver(h: typeof createElement): void
   setComponents(components: Components): void
   render(props: Props, {}): VNode
 }
-
-
-export default Markup
